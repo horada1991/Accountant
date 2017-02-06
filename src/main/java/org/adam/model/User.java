@@ -12,6 +12,7 @@ public class User {
     private String id;
     private String name;
     private String email;
+    private String username;
     private String password;
     @Transient
     private String passwordConfirm;
@@ -22,6 +23,14 @@ public class User {
 
     {
         this.id = UUID.randomUUID().toString();
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getId() {
