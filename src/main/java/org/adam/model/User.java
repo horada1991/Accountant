@@ -1,5 +1,7 @@
 package org.adam.model;
 
+import org.hibernate.validator.constraints.Email;
+
 import javax.persistence.*;
 import java.util.Set;
 import java.util.UUID;
@@ -11,6 +13,7 @@ public class User {
     @Id
     private String id;
     private String name;
+    @Email
     private String email;
     private String username;
     private String password;

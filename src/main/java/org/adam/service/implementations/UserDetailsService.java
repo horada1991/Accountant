@@ -1,6 +1,5 @@
 package org.adam.service.implementations;
 
-import javafx.beans.property.ReadOnlyBooleanProperty;
 import org.adam.model.Role;
 import org.adam.model.User;
 import org.adam.repositories.UserRepository;
@@ -12,7 +11,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 

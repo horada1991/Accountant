@@ -1,18 +1,16 @@
 package org.adam.service.implementations;
 
-import org.adam.model.Role;
 import org.adam.model.User;
 import org.adam.repositories.RoleRepository;
 import org.adam.repositories.UserRepository;
 import org.adam.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 
-/**
- * Created by Cerianth on 2017.02.06..
- */
+@Service
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
@@ -31,5 +29,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 }
