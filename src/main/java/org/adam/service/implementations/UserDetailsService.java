@@ -1,4 +1,4 @@
-package org.adam.service;
+package org.adam.service.implementations;
 
 import javafx.beans.property.ReadOnlyBooleanProperty;
 import org.adam.model.Role;
