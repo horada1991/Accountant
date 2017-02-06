@@ -1,5 +1,7 @@
 package org.adam.model;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
@@ -11,10 +13,11 @@ import java.util.UUID;
 @Table(name = "`user`")
 public class User {
     @Id
-    private String id;
+    @GeneratedValue(generator = "uuid-gen")
+    @GenericGenerator(name = "uuid-gen", strategy = "uuid2")
+    @Type(type = "pg-uuid")
+    private UUID id;
     private String name;
-    @Email
-    private String email;
     private String username;
     private String password;
     @Transient
@@ -22,11 +25,6 @@ public class User {
     @ManyToMany
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
-
-
-    {
-        this.id = UUID.randomUUID().toString();
-    }
 
     public String getUsername() {
         return username;
@@ -36,12 +34,11 @@ public class User {
         this.username = username;
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -51,14 +48,6 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getPassword() {

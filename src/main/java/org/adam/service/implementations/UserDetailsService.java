@@ -22,7 +22,7 @@ public class UserDetailsService implements org.springframework.security.core.use
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        User user = userRepository.getOne(userName);
+        User user = userRepository.findByUsername(userName);
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         for (Role role: user.getRoles()){
