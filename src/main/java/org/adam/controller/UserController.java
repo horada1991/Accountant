@@ -31,6 +31,7 @@ public class UserController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
+        userForm.setUsername(userForm.getEmail());
         userValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
