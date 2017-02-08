@@ -1,8 +1,8 @@
 package org.adam.service.implementations;
 
-import org.adam.model.Role;
 import org.adam.model.User;
 import org.adam.repositories.UserRepository;
+import org.adam.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

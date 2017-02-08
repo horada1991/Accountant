@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <title>Accountant - UserPage</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    </head>
+<body>
+<h1>User Page</h1>
+
+<table class="table table-striped table-hover">
+    <thead>
+    <tr>
+        <th>Actual Money</th>
+        <th>Savings</th>
+        <th>Savings percentage</th>
+    </tr>
+    </thead>
+    <tbody>
+    <h3 style="color:red;font-weight: bold;" th:text="${error}"></h3>
+    <tr>
+        <td th:text="*{user.getBankRoll().getActualMoney()}"></td>
+        <td th:text="*{user.getBankRoll().getSavings()}"></td>
+        <td th:text="*{user.getBankRoll().getSavingsPercentage() * 100}"></td>
+    </tr>
+    <tr>
+        <td>
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#incomeModal">Income</button>
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#expenseModal">Expense</button>
+        </td>
+        <td></td>
+        <td>
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#savingsPercentage">Savings percentage</button>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3"></td>
+    </tr>
+    </tbody>
+</table>
+<!--<th:block th:if="*{userObject.getBankRoll().getDetails().size()} > 0">-->
+<!--<table class="table table-striped table-hover">-->
+    <!--<thead>-->
+        <!--<th>Expense Amount</th>-->
+        <!--<th>Expense Reason</th>-->
+    <!--</thead>-->
+    <!--<tbody>-->
+        <!--<th:block th:each="expenseDetail,iterstat : *{userObject.getBankRoll().getDetails()}">-->
+            <!--<tr>-->
+                <!--<td th:text="*{expenseDetail.getExpense()}"></td>-->
+                <!--<td colspan="2" th:text="*{expenseDetail.getReason()}"></td>-->
+            <!--</tr>-->
+        <!--</th:block>-->
+    <!--</tbody>-->
+<!--</table>-->
+<!--</th:block>-->
+<!--&lt;!&ndash; Modal &ndash;&gt;-->
+<!--<div id="incomeModal" class="modal fade" role="dialog">-->
+    <!--<div class="modal-dialog">-->
+
+        <!--&lt;!&ndash; Modal content&ndash;&gt;-->
+        <!--<div class="modal-content">-->
+            <!--<div class="modal-header">-->
+                <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
+                <!--<h4 class="modal-title">Income</h4>-->
+            <!--</div>-->
+            <!--<div class="modal-body">-->
+                <!--<form action="/bankroll/income" method="post">-->
+                    <!--<input min="0" required="required" placeholder="Income" type="number" name="income"/><br/>-->
+                    <!--<input type="submit" value="Update"/>-->
+                <!--</form>-->
+            <!--</div>-->
+        <!--</div>-->
+
+    <!--</div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Modal &ndash;&gt;-->
+<!--<div id="expenseModal" class="modal fade" role="dialog">-->
+    <!--<div class="modal-dialog">-->
+
+        <!--&lt;!&ndash; Modal content&ndash;&gt;-->
+        <!--<div class="modal-content">-->
+            <!--<div class="modal-header">-->
+                <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
+                <!--<h4 class="modal-title">Expense</h4>-->
+            <!--</div>-->
+            <!--<div class="modal-body">-->
+                <!--<form action="/bankroll/expense" method="post" id="expense_form">-->
+                    <!--<input min="0" required="required" placeholder="Expense" type="number" name="expense"/><br/>-->
+                    <!--<textarea placeholder="Reason of expense" minlength="5" required="required" rows="5" cols="51" name="expense_reason" form="expense_form"></textarea>-->
+                    <!--<input type="submit" value="Update"/>-->
+                <!--</form>-->
+            <!--</div>-->
+        <!--</div>-->
+
+    <!--</div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Modal &ndash;&gt;-->
+<!--<div id="savingsPercentage" class="modal fade" role="dialog">-->
+    <!--<div class="modal-dialog">-->
+
+        <!--&lt;!&ndash; Modal content&ndash;&gt;-->
+        <!--<div class="modal-content">-->
+            <!--<div class="modal-header">-->
+                <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
+                <!--<h4 class="modal-title">Savings Percentage</h4>-->
+            <!--</div>-->
+            <!--<div class="modal-body">-->
+                <!--<form action="/bankroll/update-savings-percentage" method="post">-->
+                    <!--<input th:value="*{userObject.getBankRoll().getSavingsPercentage() * 100}" min="0" max="100" required="required" type="number" name="savings_percentage"/>-->
+                    <!--<h4 style="display: inline-block"> %</h4>-->
+                    <!--<br/>-->
+                    <!--<input type="submit" value="Save"/>-->
+                <!--</form>-->
+            <!--</div>-->
+        <!--</div>-->
+
+    <!--</div>-->
+<!--</div>-->
+
+
+
+
+
+</body>
+</html>

@@ -1,17 +1,17 @@
 package org.adam.service.implementations;
 
-import org.adam.model.Role;
+import org.adam.model.BankRoll;
 import org.adam.model.User;
+import org.adam.service.UserService;
 import org.adam.repositories.RoleRepository;
 import org.adam.repositories.UserRepository;
-import org.adam.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -21,13 +21,15 @@ public class UserServiceImpl implements UserService {
     private RoleRepository roleRepository;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private BankRoll bankRoll;
 
     @Override
     public void save(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        Set<Role> roles = new HashSet<>();
-        roles.add(roleRepository.findOne(UUID.fromString("cf79c9a4-ec9b-11e6-b006-92361f002671")));
-        user.setRoles(roles);
+        user.setRoles(new HashSet<>(roleRepository.findAll()));
+        user.setBankRoll(bankRoll);
+
         userRepository.save(user);
     }
 
