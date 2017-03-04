@@ -20,16 +20,21 @@
     <thead>
     <tr>
         <th>Actual Money</th>
-        <th>Savings</th>
-        <th>Savings percentage</th>
+        <th:block th:each="savingsCategory,iterstat : *{user.getBankRoll().getSavingsCategories()}">
+            <th th:text="*{savingsCategory.getName()} + ' (' + *{savingsCategory.getPercentage()} + ')'"></th>
+        </th:block>
     </tr>
     </thead>
     <tbody>
     <h3 style="color:red;font-weight: bold;" th:text="${error}"></h3>
     <tr>
         <td th:text="*{user.getBankRoll().getActualMoney()}"></td>
-        <td th:text="*{user.getBankRoll().getSavings()}"></td>
-        <td th:text="*{user.getBankRoll().getSavingsPercentage() * 100}"></td>
+        <th:block th:each="savingsCategory,iterstat : *{user.getBankRoll().getSavingsCategories()}">
+            <th th:text="*{savingsCategory.getSavings()}"></th>
+        </th:block>
+        <td>
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#savingsCategory">New Category</button>
+        </td>
     </tr>
     <tr>
         <td>
@@ -37,9 +42,6 @@
             <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#expenseModal">Expense</button>
         </td>
         <td></td>
-        <td>
-            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#savingsPercentage">Savings percentage</button>
-        </td>
     </tr>
     <tr>
         <td colspan="3"></td>
@@ -105,28 +107,29 @@
     <!--</div>-->
 <!--</div>-->
 
-<!--&lt;!&ndash; Modal &ndash;&gt;-->
-<!--<div id="savingsPercentage" class="modal fade" role="dialog">-->
-    <!--<div class="modal-dialog">-->
+<!-- Modal -->
+<div id="savingsCategory" class="modal fade" role="dialog">
+    <div class="modal-dialog">
 
-        <!--&lt;!&ndash; Modal content&ndash;&gt;-->
-        <!--<div class="modal-content">-->
-            <!--<div class="modal-header">-->
-                <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
-                <!--<h4 class="modal-title">Savings Percentage</h4>-->
-            <!--</div>-->
-            <!--<div class="modal-body">-->
-                <!--<form action="/bankroll/update-savings-percentage" method="post">-->
-                    <!--<input th:value="*{userObject.getBankRoll().getSavingsPercentage() * 100}" min="0" max="100" required="required" type="number" name="savings_percentage"/>-->
-                    <!--<h4 style="display: inline-block"> %</h4>-->
-                    <!--<br/>-->
-                    <!--<input type="submit" value="Save"/>-->
-                <!--</form>-->
-            <!--</div>-->
-        <!--</div>-->
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">New Savings Category</h4>
+            </div>
+            <div class="modal-body">
+                <form action="/bankroll/add-savings-category" method="post">
+                    <input required="required" type="text" name="savingsCategoryName" placeholder="savings Category name"/>
+                    <input min="0" max="100" required="required" type="number" name="savingsPercentage" placeholder="savings Percentage"/>
+                    <h4 style="display: inline-block"> %</h4>
+                    <br/>
+                    <input type="submit" value="Save"/>
+                </form>
+            </div>
+        </div>
 
-    <!--</div>-->
-<!--</div>-->
+    </div>
+</div>
 
 
 

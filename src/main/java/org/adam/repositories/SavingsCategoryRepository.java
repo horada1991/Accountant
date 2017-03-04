@@ -1,6 +1,7 @@
 package org.adam.repositories;
 
-import org.adam.model.User;
+import org.adam.model.Role;
+import org.adam.model.SavingsCategory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,6 +10,5 @@ import java.util.UUID;
 
 @Repository
 @Transactional
-public interface UserRepository extends JpaRepository<User, Integer> {
-    User findByUsername(String Username);
+public interface SavingsCategoryRepository extends JpaRepository<SavingsCategory, Integer> {
 }

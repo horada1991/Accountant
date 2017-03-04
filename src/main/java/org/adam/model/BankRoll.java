@@ -2,6 +2,7 @@ package org.adam.model;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -11,8 +12,9 @@ public class BankRoll {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private float actualMoney;
-    private float savings;
-    private float savingsPercentage;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<SavingsCategory> savingsCategories = new HashSet<>();
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Detail> details = new HashSet<>();
@@ -37,22 +39,6 @@ public class BankRoll {
         this.actualMoney = actualMoney;
     }
 
-    public float getSavings() {
-        return savings;
-    }
-
-    public void setSavings(float saving) {
-        this.savings = saving;
-    }
-
-    public float getSavingsPercentage() {
-        return savingsPercentage;
-    }
-
-    public void setSavingsPercentage(float savingPercentage) {
-        this.savingsPercentage = savingPercentage;
-    }
-
     public Set<Detail> getDetails() {
         return details;
     }
@@ -63,5 +49,20 @@ public class BankRoll {
 
     public void addOneObjectToExpenseDetails(Detail detail){
         this.details.add(detail);
+    }
+
+    public Set<SavingsCategory> getSavingsCategories() {
+        return savingsCategories;
+    }
+
+    public void setSavingsCategories(Set<SavingsCategory> savingsCategories) {
+        this.savingsCategories = savingsCategories;
+    }
+
+    public void saveNewSavingsCategory(SavingsCategory savingsCategory) {
+        for (SavingsCategory category: this.savingsCategories){
+            if (Objects.equals(category.getName(), savingsCategory.getName())) return;
+        }
+        this.savingsCategories.add(savingsCategory);
     }
 }

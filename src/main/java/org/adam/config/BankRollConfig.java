@@ -14,8 +14,6 @@ public class BankRollConfig {
     BankRoll bankRollWithZeroFields(){
         BankRoll bankRoll = new BankRoll();
         bankRoll.setActualMoney(0f);
-        bankRoll.setSavings(0f);
-        bankRoll.setSavingsPercentage(0f);
         return bankRoll;
     }
 }

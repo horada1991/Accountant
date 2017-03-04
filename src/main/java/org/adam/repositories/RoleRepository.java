@@ -9,5 +9,5 @@ import java.util.UUID;
 
 @Repository
 @Transactional
-public interface RoleRepository extends JpaRepository<Role, UUID> {
+public interface RoleRepository extends JpaRepository<Role, Integer> {
 }
