@@ -10,4 +10,5 @@ public interface BankRollService {
 
     public void save(BankRoll bankRoll);
     public BankRoll findOne(Integer id);
+    public void addAmountToActualMoney(BankRoll bankRoll, Float amount);
 }

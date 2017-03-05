@@ -23,4 +23,10 @@ public class SavingsCategoryServiceImpl implements SavingsCategoryService {
 
         repository.save(savingsCategory);
     }
+
+    @Override
+    public void addAmountToSavings(SavingsCategory savingsCategory, Float amount) {
+        savingsCategory.setSavings(savingsCategory.getSavings() + amount);
+        repository.save(savingsCategory);
+    }
 }

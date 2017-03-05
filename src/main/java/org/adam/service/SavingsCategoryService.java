@@ -7,4 +7,5 @@ import org.springframework.stereotype.Service;
 public interface SavingsCategoryService {
     public void addNewCategory(SavingsCategory savingsCategory);
     public void modifyPercentage(SavingsCategory savingsCategory, float percentage);
+    public void addAmountToSavings(SavingsCategory savingsCategory, Float amount);
 }

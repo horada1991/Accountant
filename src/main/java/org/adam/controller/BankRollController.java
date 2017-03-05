@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.math.RoundingMode;
+
 @Controller
 @RequestMapping(value = "/bankroll")
 public class BankRollController {
@@ -41,6 +43,22 @@ public class BankRollController {
         BankRoll bankRoll = bankRollService.findOne(loggedInUser.getBankRoll().getId());
         bankRoll.saveNewSavingsCategory(savingsCategory);
         bankRollService.save(bankRoll);
+
+        return "redirect:/user-page";
+    }
+
+    @RequestMapping(value = "/income", method = RequestMethod.POST)
+    public String addNewSavingsCategory(@RequestParam(value = "income") Float income){
+
+        User loggedInUser = userService.findByUsername(securityService.findLoggedInUsername());
+        BankRoll bankRoll = bankRollService.findOne(loggedInUser.getBankRoll().getId());
+        float sumOfSavings = 0;
+        for (SavingsCategory savingsCategory: bankRoll.getSavingsCategories()){
+            Float toSavings =(float) Math.round(income * savingsCategory.getPercentage());
+            savingsCategoryService.addAmountToSavings(savingsCategory, toSavings);
+            sumOfSavings += toSavings;
+        }
+        bankRollService.addAmountToActualMoney(bankRoll, income - sumOfSavings);
 
         return "redirect:/user-page";
     }
