@@ -5,6 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" th:href="@{/static/style.css}" href="/static/style.css"/>
 
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -48,23 +49,24 @@
     </tr>
     </tbody>
 </table>
-<!--<th:block th:if="*{userObject.getBankRoll().getDetails().size()} > 0">-->
-<!--<table class="table table-striped table-hover">-->
-    <!--<thead>-->
-        <!--<th>Expense Amount</th>-->
-        <!--<th>Expense Reason</th>-->
-    <!--</thead>-->
-    <!--<tbody>-->
-        <!--<th:block th:each="expenseDetail,iterstat : *{userObject.getBankRoll().getDetails()}">-->
-            <!--<tr>-->
-                <!--<td th:text="*{expenseDetail.getExpense()}"></td>-->
-                <!--<td colspan="2" th:text="*{expenseDetail.getReason()}"></td>-->
-            <!--</tr>-->
-        <!--</th:block>-->
-    <!--</tbody>-->
-<!--</table>-->
-<!--</th:block>-->
-<!-- Modal -->
+<th:block th:if="*{user.getBankRoll().getDetails().size()} > 0">
+<table class="table table-hover">
+    <thead>
+        <th>Expense Amount</th>
+        <th>Expense Reason</th>
+    </thead>
+    <tbody>
+        <th:block th:each="detail,iterstat : *{user.getBankRoll().getDetails()}">
+            <tr th:classappend="*{detail.getType()} == expense ? expenseclass : incomeclass">
+                <td th:text="*{detail.getAmount()}"></td>
+                <td colspan="2" th:text="*{detail.getReason()}"></td>
+            </tr>
+        </th:block>
+    </tbody>
+</table>
+</th:block>
+
+ <!--Modal-->
 <div id="incomeModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
@@ -85,27 +87,27 @@
     </div>
 </div>
 
-<!--&lt;!&ndash; Modal &ndash;&gt;-->
-<!--<div id="expenseModal" class="modal fade" role="dialog">-->
-    <!--<div class="modal-dialog">-->
+<!-- Modal -->
+<div id="expenseModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
 
-        <!--&lt;!&ndash; Modal content&ndash;&gt;-->
-        <!--<div class="modal-content">-->
-            <!--<div class="modal-header">-->
-                <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
-                <!--<h4 class="modal-title">Expense</h4>-->
-            <!--</div>-->
-            <!--<div class="modal-body">-->
-                <!--<form action="/bankroll/expense" method="post" id="expense_form">-->
-                    <!--<input min="0" required="required" placeholder="Expense" type="number" name="expense"/><br/>-->
-                    <!--<textarea placeholder="Reason of expense" minlength="5" required="required" rows="5" cols="51" name="expense_reason" form="expense_form"></textarea>-->
-                    <!--<input type="submit" value="Update"/>-->
-                <!--</form>-->
-            <!--</div>-->
-        <!--</div>-->
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Expense</h4>
+            </div>
+            <div class="modal-body">
+                <form action="/bankroll/expense" method="post" id="expense_form">
+                    <input min="0" required="required" placeholder="Expense" type="number" name="expense"/><br/>
+                    <textarea placeholder="Reason of expense" minlength="5" required="required" rows="5" cols="51" name="reason" form="expense_form"></textarea>
+                    <input type="submit" value="Update"/>
+                </form>
+            </div>
+        </div>
 
-    <!--</div>-->
-<!--</div>-->
+    </div>
+</div>
 
 <!-- Modal -->
 <div id="savingsCategory" class="modal fade" role="dialog">

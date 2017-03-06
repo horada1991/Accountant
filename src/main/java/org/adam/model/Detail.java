@@ -22,22 +22,6 @@ public class Detail {
         this.id = id;
     }
 
-    public float getExpense() {
-        return amount;
-    }
-
-    public void setExpense(float amount) {
-        this.amount = amount;
-    }
-
-    public String getReason() {
-        return reason;
-    }
-
-    public void setReason(String reason) {
-        this.reason = reason;
-    }
-
     public float getAmount() {
         return amount;
     }
@@ -52,5 +36,13 @@ public class Detail {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 }

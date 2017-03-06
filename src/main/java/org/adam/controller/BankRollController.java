@@ -48,17 +48,24 @@ public class BankRollController {
     }
 
     @RequestMapping(value = "/income", method = RequestMethod.POST)
-    public String addNewSavingsCategory(@RequestParam(value = "income") Float income){
+    public String income(@RequestParam(value = "income") Float income){
 
         User loggedInUser = userService.findByUsername(securityService.findLoggedInUsername());
         BankRoll bankRoll = bankRollService.findOne(loggedInUser.getBankRoll().getId());
-        float sumOfSavings = 0;
-        for (SavingsCategory savingsCategory: bankRoll.getSavingsCategories()){
-            Float toSavings =(float) Math.round(income * savingsCategory.getPercentage());
-            savingsCategoryService.addAmountToSavings(savingsCategory, toSavings);
-            sumOfSavings += toSavings;
-        }
-        bankRollService.addAmountToActualMoney(bankRoll, income - sumOfSavings);
+
+        bankRollService.handleIncome(bankRoll, income);
+
+        return "redirect:/user-page";
+    }
+
+    @RequestMapping(value = "/expense", method = RequestMethod.POST)
+    public String expense(@RequestParam(value = "expense") Float expense,
+                          @RequestParam(value = "reason") String reason){
+
+        User loggedInUser = userService.findByUsername(securityService.findLoggedInUsername());
+        BankRoll bankRoll = bankRollService.findOne(loggedInUser.getBankRoll().getId());
+
+        bankRollService.handleExpense(bankRoll, expense, reason);
 
         return "redirect:/user-page";
     }
