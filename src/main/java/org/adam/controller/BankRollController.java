@@ -48,12 +48,13 @@ public class BankRollController {
     }
 
     @RequestMapping(value = "/income", method = RequestMethod.POST)
-    public String income(@RequestParam(value = "income") Float income){
+    public String income(@RequestParam(value = "income") Float income,
+                         @RequestParam(value = "reason") String reason){
 
         User loggedInUser = userService.findByUsername(securityService.findLoggedInUsername());
         BankRoll bankRoll = bankRollService.findOne(loggedInUser.getBankRoll().getId());
 
-        bankRollService.handleIncome(bankRoll, income);
+        bankRollService.handleIncome(bankRoll, income, reason);
 
         return "redirect:/user-page";
     }

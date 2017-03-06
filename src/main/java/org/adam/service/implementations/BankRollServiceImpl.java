@@ -34,13 +34,19 @@ public class BankRollServiceImpl implements BankRollService {
     }
 
     @Override
-    public void handleIncome(BankRoll bankRoll, Float income) {
+    public void handleIncome(BankRoll bankRoll, Float income, String reason) {
         float sumOfSavings = 0;
         for (SavingsCategory savingsCategory: bankRoll.getSavingsCategories()){
             Float toSavings =(float) Math.round(income * savingsCategory.getPercentage());
             savingsCategoryService.addAmountToSavings(savingsCategory, toSavings);
             sumOfSavings += toSavings;
         }
+
+        Detail detail = new Detail();
+        detail.setAmount(income);
+        detail.setType("income");
+        detail.setReason(reason);
+        bankRoll.addOneObjectToExpenseDetails(detail);
         addAmountToActualMoney(bankRoll, income - sumOfSavings);
     }
 

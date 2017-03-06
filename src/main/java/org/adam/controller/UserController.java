@@ -1,5 +1,6 @@
 package org.adam.controller;
 
+import org.adam.model.SavingsCategory;
 import org.adam.service.SecurityService;
 import org.adam.model.User;
 import org.adam.service.UserService;
@@ -12,6 +13,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Set;
 
 @Controller
 public class UserController {
@@ -60,7 +66,13 @@ public class UserController {
 
     @RequestMapping(value = {"/", "/user-page"}, method = RequestMethod.GET)
     public String welcome(Model model) {
-        model.addAttribute("user", userService.findByUsername(securityService.findLoggedInUsername()));
+        User user = userService.findByUsername(securityService.findLoggedInUsername());
+        model.addAttribute("user", user);
+
+        ArrayList<SavingsCategory> savingsCategories = new ArrayList<>(user.getBankRoll().getSavingsCategories());
+        savingsCategories.sort(Comparator.comparing(SavingsCategory::getId));
+        model.addAttribute("savingsCategories", savingsCategories);
+
         return "user_page";
     }
 
